@@ -25,3 +25,9 @@
   text-align: center;
   align-items: center;
 }
+
+.loader{
+  display:flex;
+  text-align: center;
+  justify-content: center;
+}

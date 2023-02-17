@@ -1,4 +1,4 @@
-import { selectContacts } from 'Redux/ContactsSlice';
+import { selectArray, selectContacts } from 'Redux/ContactsSlice';
 import { selectFilters } from 'Redux/FilterSlice';
 import { useSelector } from 'react-redux';
 import propTypes from 'prop-types';
@@ -9,9 +9,12 @@ function ContactList() {
 
   const filter = useSelector(selectFilters);
   const filterValue = filter.filters;
-
+  const initialArray = useSelector(selectArray)
+  console.log(initialArray);
   return (
     <>
+      {initialArray.isLoading  && <p className={css.loader}>Loading data ... </p>}
+      {initialArray.error && <p className={css.loader}>{initialArray.error}</p>}
       <ul className={css.listMain}>
         {contacts
           .filter(contact => {

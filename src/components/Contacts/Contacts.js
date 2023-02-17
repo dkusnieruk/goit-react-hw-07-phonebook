@@ -1,16 +1,20 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, selectContacts } from '../../Redux/ContactsSlice';
-import { nanoid } from '@reduxjs/toolkit';
+import { addContact, fetchContacts, selectContacts } from '../../Redux/ContactsSlice';
 import css from '../Contacts/contacts.module.css';
-
+import { useEffect } from 'react';
 
 export function Contacts() {
+  
   const inputName = useRef(null);
   const inputNumber = useRef(null);
   const contacts = useSelector(selectContacts);
-
-  const dispatch = useDispatch();
+   const dispatch = useDispatch();
+  
+  useEffect(()=>{
+    dispatch(fetchContacts())
+  }, [dispatch])
+  
   const handleAddContact = () => {
     const contactText = inputName.current.value;
     const numberText = inputNumber.current.value;
@@ -31,9 +35,8 @@ export function Contacts() {
 
     dispatch(
       addContact({
-        id: nanoid(),
         name: contactText,
-        number: numberText,
+        phone: numberText,
       })
     );
     inputName.current.value = '';
@@ -46,6 +49,7 @@ export function Contacts() {
   };
   return (
     <>
+    
       <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.label}>
           Name
