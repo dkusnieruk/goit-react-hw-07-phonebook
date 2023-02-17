@@ -1,24 +1,27 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, fetchContacts, selectContacts } from '../../Redux/ContactsSlice';
+import {
+  addContact,
+  fetchContacts,
+  selectContacts,
+} from '../../Redux/ContactsSlice';
 import css from '../Contacts/contacts.module.css';
 import { useEffect } from 'react';
 
 export function Contacts() {
-  
   const inputName = useRef(null);
   const inputNumber = useRef(null);
   const contacts = useSelector(selectContacts);
-   const dispatch = useDispatch();
-  
-  useEffect(()=>{
-    dispatch(fetchContacts())
-  }, [dispatch])
-  
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   const handleAddContact = () => {
     const contactText = inputName.current.value;
     const numberText = inputNumber.current.value;
-    
+
     const checkArray = contacts.filter(contact => {
       const filterArray = contact.name.toLowerCase();
       const filterName = contactText.toLowerCase();
@@ -30,15 +33,13 @@ export function Contacts() {
 
     if (checkArray.length > 0) {
       alert(`Masz już kontakt o imieniu : ${contactText}`);
-    }
-    else 
-
-    dispatch(
-      addContact({
-        name: contactText,
-        phone: numberText,
-      })
-    );
+    } else
+      dispatch(
+        addContact({
+          name: contactText,
+          phone: numberText,
+        })
+      );
     inputName.current.value = '';
     inputNumber.current.value = '';
   };
@@ -49,7 +50,6 @@ export function Contacts() {
   };
   return (
     <>
-    
       <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.label}>
           Name

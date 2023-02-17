@@ -9,11 +9,13 @@ function ContactList() {
 
   const filter = useSelector(selectFilters);
   const filterValue = filter.filters;
-  const initialArray = useSelector(selectArray)
+  const initialArray = useSelector(selectArray);
   console.log(initialArray);
   return (
     <>
-      {initialArray.isLoading  && <p className={css.loader}>Loading data ... </p>}
+      {initialArray.isLoading && (
+        <p className={css.loader}>Loading data ... </p>
+      )}
       {initialArray.error && <p className={css.loader}>{initialArray.error}</p>}
       <ul className={css.listMain}>
         {contacts
