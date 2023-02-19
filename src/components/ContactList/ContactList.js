@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux';
 import propTypes from 'prop-types';
 import css from '../ContactList/contactList.module.css';
 import ContactItem from 'components/ContactItem/ContactItem';
+
 function ContactList() {
   const contacts = useSelector(selectContacts);
-
   const filter = useSelector(selectFilters);
   const filterValue = filter.filters;
   const initialArray = useSelector(selectArray);
-  console.log(initialArray);
+  
   return (
     <>
       {initialArray.isLoading && (
